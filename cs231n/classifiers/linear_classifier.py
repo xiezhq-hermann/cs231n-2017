@@ -1,5 +1,3 @@
-from __future__ import print_function
-
 import numpy as np
 from cs231n.classifiers.linear_svm import *
 from cs231n.classifiers.softmax import *
@@ -38,7 +36,6 @@ class LinearClassifier(object):
 
         # Run stochastic gradient descent to optimize W
         loss_history = []
-        X_indices = np.arange(num_train)
         for it in range(num_iters):
             X_batch = None
             y_batch = None
@@ -54,7 +51,7 @@ class LinearClassifier(object):
             # Hint: Use np.random.choice to generate indices. Sampling with         #
             # replacement is faster than sampling without replacement.              #
             #########################################################################
-            batch_indices = np.random.choice(X_indices,batch_size)
+            batch_indices = np.random.choice(np.arange(num_train), batch_size)
 
             X_batch = X[batch_indices]
             y_batch = y[batch_indices]
@@ -100,7 +97,7 @@ class LinearClassifier(object):
         # TODO:                                                                   #
         # Implement this method. Store the predicted labels in y_pred.            #
         ###########################################################################
-        pred_scores = np.dot(X,self.W)
+        pred_scores = np.dot(X, self.W)
         y_pred = np.argmax(pred_scores, axis=1)
         ###########################################################################
         #                           END OF YOUR CODE                              #
