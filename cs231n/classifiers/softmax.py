@@ -80,9 +80,6 @@ def softmax_loss_vectorized(W, X, y, reg):
     dScore = score_exp / score_exp_sum[..., np.newaxis]
     dScore[range(num_train), y] -= 1
 
-    #############################################################################
-    #                          END OF YOUR CODE                                 #
-    #############################################################################
     dW = np.dot(X.T, dScore)
     dW /= num_train
     dW += 2 * reg * W

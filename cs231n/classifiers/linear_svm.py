@@ -84,9 +84,7 @@ def svm_loss_vectorized(W, X, y, reg):
 	scores_fil[range(scores.shape[0]), y] -= 1
 	scores_margin = scores_fil - correct_class_scores[..., np.newaxis] + 1
 	scores_margin[scores_margin < 0] = 0
-	#############################################################################
-	#                             END OF YOUR CODE                              #
-	#############################################################################
+
 	num_train = X.shape[0]
 	loss = np.sum(scores_margin) / num_train
 	loss += reg * np.sum(W * W)
@@ -106,8 +104,5 @@ def svm_loss_vectorized(W, X, y, reg):
 	gra_indicator[range(gra_indicator.shape[0]), y] = -sum_ind
 	dW = np.dot(X.T, gra_indicator)
 	dW = dW / num_train + 2 * reg * W
-	#############################################################################
-	#                             END OF YOUR CODE                              #
-	#############################################################################
 
 	return loss, dW

@@ -55,9 +55,6 @@ class LinearClassifier(object):
 
             X_batch = X[batch_indices]
             y_batch = y[batch_indices]
-            #########################################################################
-            #                       END OF YOUR CODE                                #
-            #########################################################################
 
             # evaluate loss and gradient
             loss, grad = self.loss(X_batch, y_batch, reg)
@@ -69,9 +66,6 @@ class LinearClassifier(object):
             # Update the weights using the gradient and the learning rate.          #
             #########################################################################
             self.W += -(learning_rate * grad)
-            #########################################################################
-            #                       END OF YOUR CODE                                #
-            #########################################################################
 
             if verbose and it % 100 == 0:
                 print('iteration %d / %d: loss %f' % (it, num_iters, loss))
@@ -99,9 +93,7 @@ class LinearClassifier(object):
         ###########################################################################
         pred_scores = np.dot(X, self.W)
         y_pred = np.argmax(pred_scores, axis=1)
-        ###########################################################################
-        #                           END OF YOUR CODE                              #
-        ###########################################################################
+        
         return y_pred
 
     def loss(self, X_batch, y_batch, reg):

@@ -82,10 +82,6 @@ class TwoLayerNet(object):
         # Second layer
         scores = np.dot(relu_1, W2) + b2
 
-        #############################################################################
-        #                              END OF YOUR CODE                             #
-        #############################################################################
-
         # If the targets are not given then jump out, we're done
         if y is None:
             return scores
@@ -105,9 +101,6 @@ class TwoLayerNet(object):
         loss /= N
         loss += reg * (np.sum(W1 * W1) + np.sum(W2 * W2) +
                        np.sum(b1 * b1) + np.sum(b2 * b2))
-        #############################################################################
-        #                              END OF YOUR CODE                             #
-        #############################################################################
 
         # Backward pass: compute gradients
         grads = {}
@@ -124,21 +117,22 @@ class TwoLayerNet(object):
         dW2 = np.dot(relu_1.T, dScore)
         dW2 += 2*reg*W2
         grads["W2"] = dW2
+
         ## gradients of b2
         db2 = np.sum(dScore, axis=0)
         grads["b2"] = db2
+
         ## continue backprop
         dRelu1 = np.dot(dScore, W2.T) * (relu_1 > 0).astype(float)
+
         ## gradients of W1
         dW1 = np.dot(X.T, dRelu1)
         dW1 += 2*reg*W1
         grads["W1"] = dW1
+
         ## gradients of b1
         db1 = np.sum(dRelu1, axis=0)
         grads["b1"] = db1
-        #############################################################################
-        #                              END OF YOUR CODE                             #
-        #############################################################################
 
         return loss, grads
 
@@ -182,9 +176,6 @@ class TwoLayerNet(object):
             batch_indices = np.random.permutation(num_train)[0:batch_size]
             X_batch = X[batch_indices,...]
             y_batch = y[batch_indices]
-            #########################################################################
-            #                             END OF YOUR CODE                          #
-            #########################################################################
 
             # Compute loss and gradients using the current minibatch
             loss, grads = self.loss(X_batch, y=y_batch, reg=reg)
@@ -200,9 +191,6 @@ class TwoLayerNet(object):
             self.params["b1"] -= grads["b1"] * learning_rate
             self.params["W2"] -= grads["W2"] * learning_rate
             self.params["b2"] -= grads["b2"] * learning_rate
-            #########################################################################
-            #                             END OF YOUR CODE                          #
-            #########################################################################
 
             if verbose and it % 100 == 0:
                 print('iteration %d / %d: loss %f' % (it, num_iters, loss))
@@ -245,8 +233,5 @@ class TwoLayerNet(object):
         # TODO: Implement this function; it should be VERY simple!                #
         ###########################################################################
         y_pred = np.argmax(self.loss(X), axis = 1) ## here the loss is the score
-        ###########################################################################
-        #                              END OF YOUR CODE                           #
-        ###########################################################################
 
         return y_pred
