@@ -157,7 +157,8 @@ def adam(x, dx, config=None):
 
     new_m = beta1 * m + (1 - beta1) * dx
     new_v = beta2 * v + (1 - beta2) * (dx**2)
-    next_x = x - learning_rate * new_m / (1 - beta1 ** t) / (np.sqrt(new_v / ( 1 - beta2 ** t)) + epsilon)
+    next_x = x - learning_rate * new_m / \
+        (1 - beta1 ** t) / (np.sqrt(new_v / (1 - beta2 ** t)) + epsilon)
 
     config['m'] = new_m
     config['v'] = new_v

@@ -305,20 +305,23 @@ class FullyConnectedNet(object):
         loss, dsoft = softmax_loss(scores, y)
 
         i = self.num_layers - 1
-        dLayer, grads[('W',i)], grads[('b',i)] = affine_backward(dsoft, layer_cache[i])
+        dLayer, grads[('W', i)], grads[('b', i)] = affine_backward(
+            dsoft, layer_cache[i])
 
-        for j in range(i-1, -1, -1):
+        for j in range(i - 1, -1, -1):
             if self.use_dropout:
                 dLayer = dropout_backward(dLayer, dropout_cache[j])
             dLayer = relu_backward(dLayer, relu_cache[j])
             if self.use_batchnorm:
-                dLayer, grads[("dgamma", j)], grads[("dbeta", j)] = batchnorm_backward(dLayer, batchnorm_cache[j])
-            dLayer, grads[("W", j)], grads[("b", j)] = affine_backward(dLayer, layer_cache[j])
+                dLayer, grads[("dgamma", j)], grads[("dbeta", j)] = batchnorm_backward(
+                    dLayer, batchnorm_cache[j])
+            dLayer, grads[("W", j)], grads[("b", j)] = affine_backward(
+                dLayer, layer_cache[j])
 
-        ## regularization:
+        # regularization:
         for i in range(self.num_layers):
             loss += 0.5 * self.reg * np.sum(self.params[("W", i)] ** 2)
-            grads[("W", i)] += self.reg * self.params[("W",i)]
+            grads[("W", i)] += self.reg * self.params[("W", i)]
         ############################################################################
         #                             END OF YOUR CODE                             #
         ############################################################################

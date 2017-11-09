@@ -649,7 +649,8 @@ def spatial_batchnorm_backward(dout, cache):
 
     sigma = np.sqrt(var).reshape(1, C, 1, 1)
     dx_hat = gamma.reshape(1, C, 1, 1) * dout
-    dvar = -0.5 * np.mean(dx_hat * x_hat, axis=(0, 2, 3)).reshape(1, C, 1, 1) / var
+    dvar = -0.5 * np.mean(dx_hat * x_hat, axis=(0, 2, 3)
+                          ).reshape(1, C, 1, 1) / var
     dmean = -1.0 * np.mean(dx_hat, axis=(0, 2, 3)).reshape(1, C, 1, 1) / sigma
 
     dx = dx_hat / sigma + dvar * 2 * x_hat * sigma + dmean
