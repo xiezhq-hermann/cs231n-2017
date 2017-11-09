@@ -309,7 +309,7 @@ class FullyConnectedNet(object):
 
         for j in range(i-1, -1, -1):
             if self.use_dropout:
-                dLayer = dropout_backward(dLayer, layer_cache[j])
+                dLayer = dropout_backward(dLayer, dropout_cache[j])
             dLayer = relu_backward(dLayer, relu_cache[j])
             if self.use_batchnorm:
                 dLayer, grads[("dgamma", j)], grads[("dbeta", j)] = batchnorm_backward(dLayer, batchnorm_cache[j])
