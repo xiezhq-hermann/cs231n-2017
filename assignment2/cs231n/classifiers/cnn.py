@@ -99,9 +99,7 @@ class ThreeLayerConvNet(object):
             X, W1, b1,  conv_param, pool_param)
 
         affine1_out, affine1_cache = affine_forward(pool_out, W2, b2)
-
         relu_out, relu_cache = relu_forward(affine1_out)
-
         scores, affine2_cache = affine_forward(relu_out, W3, b3)
 
         ############################################################################
